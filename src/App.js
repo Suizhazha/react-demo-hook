@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import './index.css'
 
-function App() {
+const themeContext = React.createContext(null)
+
+const App = () => {
+const [theme,setTheme] = React.useState('red')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <themeContext.Provider value={{theme,setTheme}}>
+      <div className={`App ${theme}`}>
+        <p>{theme}</p>
+        <div>
+          <Child1/>
+        </div>
+        <div>
+          <Child2/>
+        </div>
+      </div>
+    </themeContext.Provider>
+  )
 }
 
-export default App;
+const Child1 = () =>{
+  const {setTheme}  = React.useContext(themeContext)
+return(
+  <div>
+    <button onClick={()=>{setTheme('red')}}>red</button>
+  </div>
+)
+}
+const Child2 = () =>{
+  const {setTheme}  = React.useContext(themeContext)
+  return (
+  <div>
+    <button onClick={()=>{setTheme('blue')}}>blue</button>
+  </div>
+)
+}
+
+
+
+
+export default App
+
