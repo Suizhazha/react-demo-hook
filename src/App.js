@@ -1,51 +1,37 @@
 import React from "react"
 
 
-const initial = {
-  n:0
-}
+const App = () => {
+  const [n, setN] = React.useState(0)
 
-const reducer =(state,action) =>{
-  if (action.type=== 'add'){
-    return {
-      n:state.n+action.number
+  React.useEffect(
+    () => {
+      console.log(`第一次渲染之后`)
     }
-  }else if (action.type==='multiply'){
-    return {
-      n:state.n*action.number
+    , [])  // [] 内变量变化时再次执行，即空数组不会再次执行
+
+  React.useEffect(
+    () => {
+      console.log(`n变化后渲染`)
     }
-  }
-  else {
-    throw new Error('unknown type')
-  }
-}
+    , [n]) // n变化时执行
 
-const App=()=>{
-const [state,dispatch]=  React.useReducer(reducer,initial)
+  React.useEffect(
+    () => {
+      console.log(`任何state变化执行！`)
+    })
 
 
-const onClick = ()=>{
-  dispatch({type:'add',number:1})
-}
-const onClick2 = ()=>{
-  dispatch({type:'add',number:2})
-}
-  const onClick3 = ()=>{
-    dispatch({type:'multiply',number:2})
-  }
-  return(
-    <div>
-      <p>n:{state.n}</p>
-      <button onClick={onClick}>+1</button>
-      <button onClick={onClick2}>+2</button>
-
-      <button onClick={onClick3}>*2</button>
-
-    </div>
+  return (
+    <>
+      <div>{n}</div>
+      <button onClick={() => {
+        setN(n + 1)
+      }}>+1
+      </button>
+    </>
   )
 }
-
-
 
 
 export default App
