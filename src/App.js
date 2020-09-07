@@ -6,20 +6,15 @@ const App = () => {
 
   React.useEffect(
     () => {
-      console.log(`第一次渲染之后`)
-    }
-    , [])  // [] 内变量变化时再次执行，即空数组不会再次执行
-
-  React.useEffect(
-    () => {
-      console.log(`n变化后渲染`)
-    }
-    , [n]) // n变化时执行
-
-  React.useEffect(
-    () => {
-      console.log(`任何state变化执行！`)
-    })
+      const id = setInterval(
+        () => {
+          console.log(1)
+        }
+        , 2000)
+      return () => {
+        window.clearInterval(id)
+      }
+    }, [])
 
 
   return (
