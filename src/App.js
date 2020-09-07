@@ -3,18 +3,15 @@ import React from "react"
 
 const App = () => {
   const [n, setN] = React.useState(0)
+  const count = React.useRef(0)
 
   React.useEffect(
     () => {
-      const id = setInterval(
-        () => {
-          console.log(1)
-        }
-        , 2000)
-      return () => {
-        window.clearInterval(id)
-      }
-    }, [])
+      count.current += 1
+      console.log(count.current)
+      console.log(count)
+    }
+  )
 
 
   return (
