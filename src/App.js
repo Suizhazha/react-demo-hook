@@ -1,26 +1,31 @@
 import React from "react"
+import useList from "./component/useList"
 
 
 const App = () => {
-  const [n, setN] = React.useState(0)
-  const count = React.useRef(0)
-
-  React.useEffect(
-    () => {
-      count.current += 1
-      console.log(count.current)
-      console.log(count)
-    }
-  )
-
+  const {list, deleteIndex} = useList()
 
   return (
     <>
-      <div>{n}</div>
-      <button onClick={() => {
-        setN(n + 1)
-      }}>+1
-      </button>
+      <h1>List</h1>
+      {
+        list ? (
+            <ol>
+              {list.map((item, index) => (
+                  <li>
+                    {item.name}
+                    <button onClick={() => {
+                      deleteIndex(index)
+                    }}>
+                      x
+                    </button>
+                  </li>
+                )
+              )}
+            </ol>
+          ) :
+          "加载中..."
+      }
     </>
   )
 }
